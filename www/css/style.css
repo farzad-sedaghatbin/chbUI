@@ -1,0 +1,13 @@
+/* Empty. Add your own CSS if you like */
+
+.banner img{
+  width:100%;
+  height: 150px;
+
+}
+
+.item-round-img{
+  width:200px;
+  height:200px;
+  border-radius: 30px;
+}

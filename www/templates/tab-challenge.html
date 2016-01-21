@@ -1,0 +1,30 @@
+<ion-view view-title="CHALLENGE">
+  <ion-content class="padding">
+
+    <form accept-charset="UTF-8" ng-controller="FormCtrl" ng-submit="submitForm()">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" ng-model="form.title" placeholder="Title" name="title">
+        </label>
+        <label class="item item-input">
+          <input type="text" ng-model="form.description"  placeholder="Description" name="description">
+        </label>
+        <label class="item item-input">
+          <select name="Type" id="Type" ng-model="form.Type" >
+            <option value="fun">fun</option>
+            <option value="sport">sport</option>
+            <option value="other">other</option>
+          </select>
+        </label>
+        <label class="item item-input">
+          <input type="file" name="Archivefile" id="Archivefile" ng-model="form.file"  file-model="myFile">
+        </label>
+      </div>
+
+
+      <div class="padding">
+        <button  ng-click="uploadFile()" class="button button-block button-positive">Submit</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>
