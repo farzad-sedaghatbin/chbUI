@@ -44,30 +44,30 @@ angular.module('tabSlideBox', [])
 		return {
 			restrict : 'A, E, C',
 			link : function(scope, element, attrs, ngModel) {
-				
+
 				var ta = element[0], $ta = element;
 				$ta.addClass("tabbed-slidebox");
 				if(attrs.tabsPosition === "bottom"){
 					$ta.addClass("btm");
 				}
-				
+
 				//Handle multiple slide/scroll boxes
 				var handle = ta.querySelector('.slider').getAttribute('delegate-handle');
-				
+
 				var ionicSlideBoxDelegate = $ionicSlideBoxDelegate;
 				if(handle){
 					ionicSlideBoxDelegate = ionicSlideBoxDelegate.$getByHandle(handle);
 				}
-				
+
 				var ionicScrollDelegate = $ionicScrollDelegate;
 				if(handle){
 					ionicScrollDelegate = ionicScrollDelegate.$getByHandle(handle);
 				}
-				
+
 				function renderScrollableTabs(){
 					var iconsDiv = angular.element(ta.querySelector(".tsb-icons")), icons = iconsDiv.find("a"), wrap = iconsDiv[0].querySelector(".tsb-ic-wrp"), totalTabs = icons.length;
 					var scrollDiv = wrap.querySelector(".scroll");
-					
+
 					angular.forEach(icons, function(value, key){
 					     var a = angular.element(value);
 					     a.on('click', function(){
@@ -78,18 +78,18 @@ angular.module('tabSlideBox', [])
 							a.attr("class", a.attr('icon-off'));
 						}
 					});
-					
+
 					var initialIndex = attrs.tab;
 					//Initializing the middle tab
 					if(typeof attrs.tab === 'undefined' || (totalTabs <= initialIndex) || initialIndex < 0){
 						initialIndex = Math.floor(icons.length/2);
 					}
-					
-					//If initial element is 0, set position of the tab to 0th tab 
+
+					//If initial element is 0, set position of the tab to 0th tab
 					if(initialIndex == 0){
 						setPosition(0);
 					}
-					
+
 					$timeout(function() {
 						ionicSlideBoxDelegate.slide(initialIndex);
 					}, 0);
@@ -97,7 +97,7 @@ angular.module('tabSlideBox', [])
 				function setPosition(index){
 					var iconsDiv = angular.element(ta.querySelector(".tsb-icons")), icons = iconsDiv.find("a"), wrap = iconsDiv[0].querySelector(".tsb-ic-wrp"), totalTabs = icons.length;
 					var scrollDiv = wrap.querySelector(".scroll");
-					
+
 					var middle = iconsDiv[0].offsetWidth/2;
 					var curEl = angular.element(icons[index]);
 					var prvEl = angular.element(iconsDiv[0].querySelector(".active"));
@@ -113,7 +113,7 @@ angular.module('tabSlideBox', [])
 						curEl.attr("class", curEl.attr('icon-on'));
 					}
 					curEl.addClass("active");
-					
+
 					var leftStr = (middle  - (curElLeft) -  curElWidth/2 + 5);
 					//If tabs are not scrollable
 					if(!scrollDiv){
@@ -148,22 +148,23 @@ angular.module('tabSlideBox', [])
 				events.on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
 					renderScrollableTabs();
 				});
-				
+
 				renderScrollableTabs();
 			},
 			controller : function($scope, $attrs, $element) {
 				$scope.events = new SimplePubSub();
-				
+
 				$scope.slideHasChanged = function(index){
 					$scope.events.trigger("slideChange", {"index" : index});
+
 					$timeout(function(){if($scope.onSlideMove) $scope.onSlideMove({"index" : eval(index)});},100);
 				};
-				
+
 				$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
 					$scope.events.trigger("ngRepeatFinished", {"event" : ngRepeatFinishedEvent});
 				});
 			}
 		};
 
-	} 
+	}
 ]);

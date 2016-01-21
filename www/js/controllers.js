@@ -74,7 +74,19 @@ angular.module('starter.controllers', [])
     //$scope.$on('$ionicView.enter', function(e) {
     //});
 
+    var currentStart = 0
+    $scope.items = []
 
+
+    $scope.addItems = function() {
+      for (var i = currentStart; i < currentStart+20; i++) {
+        $scope.items.push("Item " + i)
+      }
+
+      currentStart += 20
+    }
+
+    $scope.addItems();
   })
 
   .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
@@ -82,9 +94,20 @@ angular.module('starter.controllers', [])
   })
 
   .controller('AccountCtrl', function ($scope) {
-    $scope.settings = {
-      enableFriends: true
+
+    var currentStart = 0
+    $scope.items = []
+
+
+    $scope.addItems = function() {
+      for (var i = currentStart; i < currentStart+20; i++) {
+        $scope.items.push("Item " + i)
+      }
+
+      currentStart += 20
     }
+
+    $scope.addItems();
   })
 
   .controller('NewChallengeCtrl', function ($scope) {

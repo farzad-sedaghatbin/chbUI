@@ -1,9 +1,33 @@
 <ion-view title="new item">
   <ion-content overflow-scroll="true" padding="true" class="has-header">
-      <ion-item class="item-thumbnail-left" href="#/page7">
-        <img src="../img/adam.jpg">
-        <h2>Title</h2>
-        <p>Item</p>
-      </ion-item>
+    <tab-slide-box>
+      <div class="tsb-icons">
+        <div class="tsb-ic-wrp">
+          <a href="javascript:;" class="ion-home"></a>
+          <a href="javascript:;" class="ion-game-controller-b"></a>
+          <a href="javascript:;" class="ion-email"></a>
+          <a href="javascript:;" class="ion-model-s"></a>
+          <a href="javascript:;" class="ion-person"></a>
+        </div>
+      </div>
+      <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+        <ion-slide>
+          <h1>Home content</h1>
+        </ion-slide>
+        <ion-slide>
+          <h1>Games content</h1>
+        </ion-slide>
+        <ion-slide>
+          <h1>Mail content</h1>
+        </ion-slide>
+        <ion-slide>
+          <h1>Car content</h1>
+        </ion-slide>
+        <ion-slide>
+          <h1>Profile content</h1>
+        </ion-slide>
+
+      </ion-slide-box>
+    </tab-slide-box>
   </ion-content>
 </ion-view>
