@@ -171,6 +171,14 @@ angular.module('starter.controllers', [])
 
   }])
 
+    .controller('loginCtrl', function($scope) {
+
+    })
+
+    .controller('signupCtrl', function($scope) {
+
+    })
+
 
 
 
