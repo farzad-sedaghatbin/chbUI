@@ -1,21 +1,21 @@
 <ion-view title="Signup">
-    <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header">
-        <form class="list">
-            <ion-list>
-                <label class="item item-input">
-                    <span class="input-label">Name</span>
-                    <input type="text" placeholder="">
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Username</span>
-                    <input type="text" placeholder="">
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Password</span>
-                    <input type="text" placeholder="">
-                </label>
-            </ion-list>
-            <button class="button button-stable button-block ">Sign up</button>
-        </form>
-    </ion-content>
+  <ion-content style="background: url(img/login.jpg) center; background-size: cover;">
+    <form id="list">
+      <div class="hero no-header flat">
+        <div class="content">
+          <div class="app-icon"></div>
+          <h1>CHALLENGE BOX</h1>
+        </div>
+      </div>
+      <div class="list">
+        <ion-md-input placeholder="Name" highlight-color="balanced" type="text"></ion-md-input>
+        <ion-md-input placeholder="Last Name" highlight-color="balanced" type="text"></ion-md-input>
+        <ion-md-input placeholder="Username" highlight-color="balanced" type="text"></ion-md-input>
+        <ion-md-input placeholder="Password" highlight-color="energized" type="password"></ion-md-input>
+      </div>
+      <div class="padding">
+        <button ui-sref="tab.dash" class="button button-full button-assertive ink">SignUp</button>
+      </div>
+    </form>
+  </ion-content>
 </ion-view>
