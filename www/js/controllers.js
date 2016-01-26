@@ -208,6 +208,7 @@ angular.module('starter.controllers', [])
   .controller('NewChallengeCtrl', function ($scope) {
     $scope.settings = {}
   })
+
   .service('HttpService', function ($http) {
     return {
       getPost: function () {
@@ -237,6 +238,7 @@ angular.module('starter.controllers', [])
       }
     };
   }])
+
   .service('fileUpload', ['$http', function ($http) {
     this.uploadFileToUrl = function (file, uploadUrl,scope) {
       var fd = new FormData();
@@ -274,13 +276,8 @@ angular.module('starter.controllers', [])
 
     $scope.doSignUp = function(){
       var signUpUrl = "http://127.0.0.1:8080/rest/service/signup";
-      console.log('do sign up '+$scope.form.fName+' '+$scope.form.lName+' '+$scope.form.email+' '+$scope.form.uName+' '+$scope.form.pass+' '+$scope.form.cPass+' ');
-      if($scope.form.pass!=$scope.form.cPass){
-        alert('pass mismatch');
-      }else{
+      console.log('do sign up '+$scope.form.name+' '+$scope.form.lastname+' '+$scope.form.email+' '+$scope.form.username+' '+$scope.form.password);
         doSignUpService.signUp( signUpUrl,$scope);
-      }
-
 
     };
 
@@ -290,7 +287,11 @@ angular.module('starter.controllers', [])
   .service('doSignUpService', ['$http', function ($http) {
     this.signUp = function ( uploadUrl,scope) {
       var fd = new FormData();
-      fd.append("title",scope.form.fName)
+      fd.append("name",scope.form.name)
+      fd.append("lastname",scope.form.lastname)
+      fd.append("email",scope.form.email)
+      fd.append("password",scope.form.password)
+      fd.append("username",scope.form.username)
 
       $http.post(uploadUrl, fd, {
         transformRequest: angular.identity,
