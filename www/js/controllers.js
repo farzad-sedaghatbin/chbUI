@@ -270,10 +270,38 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('signupCtrl', function($scope) {
+    .controller('signupCtrl', ['$scope', 'doSignUpService', function($scope, doSignUpService){
 
-    })
+    $scope.doSignUp = function(){
+      var signUpUrl = "http://127.0.0.1:8080/rest/service/signup";
+      console.log('do sign up '+$scope.form.fName+' '+$scope.form.lName+' '+$scope.form.email+' '+$scope.form.uName+' '+$scope.form.pass+' '+$scope.form.cPass+' ');
+      if($scope.form.pass!=$scope.form.cPass){
+        alert('pass mismatch');
+      }else{
+        doSignUpService.signUp( signUpUrl,$scope);
+      }
 
+
+    };
+
+    }])
+
+
+  .service('doSignUpService', ['$http', function ($http) {
+    this.signUp = function ( uploadUrl,scope) {
+      var fd = new FormData();
+      fd.append("title",scope.form.fName)
+
+      $http.post(uploadUrl, fd, {
+        transformRequest: angular.identity,
+        headers: {'Content-Type': undefined}
+      })
+        .success(function () {
+        })
+        .error(function () {
+        });
+    }
+  }])
 
 
 

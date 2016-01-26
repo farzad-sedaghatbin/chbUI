@@ -1,6 +1,6 @@
 <ion-view title="Signup">
   <ion-content style="background: url(img/login.jpg) center; background-size: cover;">
-    <form id="list">
+    <form id="list" ng-controller="signupCtrl" ng-submit="submitForm()">
       <div class="hero no-header flat">
         <div class="content">
           <div class="app-icon"></div>
@@ -8,13 +8,15 @@
         </div>
       </div>
       <div class="list">
-        <ion-md-input placeholder="Name" highlight-color="balanced" type="text"></ion-md-input>
-        <ion-md-input placeholder="Last Name" highlight-color="balanced" type="text"></ion-md-input>
-        <ion-md-input placeholder="Username" highlight-color="balanced" type="text"></ion-md-input>
-        <ion-md-input placeholder="Password" highlight-color="energized" type="password"></ion-md-input>
+        <ion-md-input placeholder="Name"  ng-model="form.fName" highlight-color="balanced" type="text"></ion-md-input>
+        <ion-md-input placeholder="Last Name" ng-model="form.lName" highlight-color="balanced" type="text"></ion-md-input>
+        <ion-md-input placeholder="Email" ng-model="form.email" highlight-color="balanced" type="text"></ion-md-input>
+        <ion-md-input placeholder="Username" ng-model="form.uName" highlight-color="balanced" type="text"></ion-md-input>
+        <ion-md-input placeholder="Password" ng-model="form.pass" highlight-color="energized" type="password"></ion-md-input>
+        <ion-md-input placeholder="Confirm Password" ng-model="form.cPass" highlight-color="energized" type="password"></ion-md-input>
       </div>
       <div class="padding">
-        <button ui-sref="tab.dash" class="button button-full button-assertive ink">SignUp</button>
+        <button ng-click="doSignUp()"  class="button button-full button-assertive ink">SignUp</button>
       </div>
     </form>
   </ion-content>
