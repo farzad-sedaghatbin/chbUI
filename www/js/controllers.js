@@ -246,6 +246,7 @@ angular.module('starter.controllers', [])
       fd.append("title",scope.form.title)
       fd.append("description",scope.form.description)
       fd.append("Type",scope.form.Type)
+      fd.append("fileType",file.type)
       $http.post(uploadUrl, fd, {
         transformRequest: angular.identity,
         headers: {'Content-Type': undefined}
