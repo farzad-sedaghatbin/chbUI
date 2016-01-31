@@ -277,6 +277,7 @@ angular.module('starter.controllers', [])
     $scope.doSignUp = function(){
       var signUpUrl = "http://127.0.0.1:8080/rest/service/signup";
       console.log('do sign up '+$scope.form.name+' '+$scope.form.lastname+' '+$scope.form.email+' '+$scope.form.username+' '+$scope.form.password);
+
         doSignUpService.signUp( signUpUrl,$scope);
 
     };
@@ -285,25 +286,58 @@ angular.module('starter.controllers', [])
 
 
   .service('doSignUpService', ['$http', function ($http) {
-    this.signUp = function ( uploadUrl,scope) {
+    this.signUp = function ( signupUrl,scope) {
       var fd = new FormData();
       fd.append("name",scope.form.name)
       fd.append("lastname",scope.form.lastname)
       fd.append("email",scope.form.email)
       fd.append("password",scope.form.password)
       fd.append("username",scope.form.username)
-
-      $http.post(uploadUrl, fd, {
+      console.log('http');
+      $http.post(signupUrl, fd, {
         transformRequest: angular.identity,
         headers: {'Content-Type': undefined}
       })
         .success(function () {
+          console.log('succ');
         })
         .error(function () {
+          console.log('err');
         });
     }
   }])
 
+  .controller('signinCtrl', ['$scope', 'doSigninService', function($scope, doSigninService){
+
+    $scope.doSignIn = function(){
+       var signInUrl = "http://127.0.0.1:8080/rest/service/checkuser";
+      console.log('do sign in '+$scope.form.username+' '+$scope.form.password);
+
+      doSigninService.signIn( signInUrl,$scope);
+
+    };
+
+  }])
+
+
+  .service('doSigninService', ['$http', function ($http) {
+    this.signIn = function ( signinUrl,scope) {
+      var fd = new FormData();
+      fd.append("password",scope.form.password)
+      fd.append("username",scope.form.username)
+      console.log('http');
+      $http.post(signinUrl, fd, {
+        transformRequest: angular.identity,
+        headers: {'Content-Type': undefined}
+      })
+        .success(function () {
+          console.log('succ');
+        })
+        .error(function () {
+          console.log('err');
+        });
+    }
+  }])
 
 
 
