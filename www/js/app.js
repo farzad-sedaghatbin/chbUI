@@ -50,15 +50,7 @@ angular.module('starter', ['ionic', 'ionic-material', 'ionMdInput', 'starter.con
           }
         }
       })
-      .state('tab.profile', {
-        url: '/profile',
-        views: {
-          'tab-dash': {
-            templateUrl: 'templates/tab-profile.html',
-            controller: 'ProfileCtrl'
-          }
-        }
-      }).state('tab.friends', {
+     .state('tab.friends', {
         url: '/friends',
         views: {
           'tab-dash': {
@@ -151,6 +143,6 @@ angular.module('starter', ['ionic', 'ionic-material', 'ionMdInput', 'starter.con
 
     // if none of the above states are matched, use this as the fallback
    // $urlRouterProvider.otherwise('/tab/account');
-     $urlRouterProvider.otherwise('/login');
+     $urlRouterProvider.otherwise('/tab/detail/1');
 
   });

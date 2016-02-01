@@ -7,10 +7,40 @@
 <ion-view view-title="CHALLENGE VIDEO">
   <ion-content class="padding">
 
-    <video id="my-video" class="video-js" controls autoplay="true" preload="auto" width="640" height="264"
-           poster="https://s3.eu-central-1.amazonaws.com/challengebox/a.jpg" data-setup="{}">
-      <source src="https://s3.eu-central-1.amazonaws.com/myfiles.myvideos/ostad.mp4" type='video/mp4'>
 
-    </video>
+
+    <div class="list card">
+
+      <div class="item item-avatar">
+        <img src="http://ionicframework.com/img/docs/mcfly.jpg">
+        <h2>Marty McFly</h2>
+        <p>November 05, 1955</p>
+      </div>
+
+      <div class="item item-body ">
+        <video id="my-video" class="video-js" controls autoplay="true" preload="auto" width="640" height="264"
+               poster="https://s3.eu-central-1.amazonaws.com/challengebox/a.jpg" data-setup="{}">
+          <source src="https://s3.eu-central-1.amazonaws.com/myfiles.myvideos/ostad.mp4" type='video/mp4'>
+
+        </video>
+        <p>
+          This is a "Challenge" styled Card.  descriptions
+        </p>
+        <p>
+          <a href="#" class="subdued">1 Like</a>
+          <a href="#" class="subdued">5 Comments</a>
+        </p>
+      </div>
+
+      <div class="tabs tabs-dark static  tabs-icon-left">
+        <a class="tab-item" href="#">
+          <i class="icon  ion-thumbsup"></i>
+        </a>
+        <a class="tab-item" href="#">
+          <i class="icon ion-document-text"></i>
+        </a>
+
+      </div>
+    </div>
   </ion-content>
 </ion-view>
