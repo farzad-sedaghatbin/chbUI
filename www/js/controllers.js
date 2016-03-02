@@ -1,12 +1,12 @@
 angular.module('starter.controllers', [])
 
-  .controller('DetailCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+  .controller('DetailCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, HttpService) {
     $scope.showHeader();
     $scope.clearFabs();
     $scope.isExpanded = false;
     $scope.setExpanded(false);
     $scope.setHeaderFab(false);
-
+    $scope.challengeDate="November 05, 1955";
     // Set Motion
     $timeout(function() {
       ionicMaterialMotion.slideUp({
@@ -19,9 +19,22 @@ angular.module('starter.controllers', [])
         startVelocity: 3000
       });
     }, 700);
+    HttpService.getStream()
+      .success(function (response) {
+        $scope.challenge = response;
+
+        div=ionicMaterialInk.displayEffect("videoHolder");
+        $buffer="<video id='my-video' class='video-js' controls autoplay='true' preload='auto' width='640' height='264'poster='";
+        $buffer+=scope.challenge.thumbnail+"' data-setup='{}'>";
+        $buffer+="<source src='"+$scope.challenge.stream+"' type='video/mp4'></video> ";
+
+      });
 
     // Set Ink
+
+        div.innerHTML=$buffer;
     ionicMaterialInk.displayEffect();
+
   })
 
   .controller('TabCtrl', function ($scope, $stateParams,$ionicModal, $ionicPopover, $timeout) {
@@ -158,14 +171,14 @@ angular.module('starter.controllers', [])
       for (i = 0; i < 10; i++) {
       var innerSwipper = document.createElement("div");
       innerSwipper.className = "swiper-slide";
-      innerSwipper.innerHTML = '<ion-item class="item-thumbnail-top item item-complex" href="#/tab/chats/1"> <a class="item-content" ng-href="#/tab/chats/1" href="#/tab/chats/1"> <img class="item-round-img" src="https://s3.eu-central-1.amazonaws.com/challengebox/a.jpg"> <h2>sib khori</h2> <p>sib gonde bokhor</p> </a></ion-item>';
+      innerSwipper.innerHTML = '<ion-item class="item-thumbnail-top item item-complex" href="#/tab/detail/1"> <a class="item-content" ng-href="#/tab/detail/1" href="#/tab/detail/1"> <img class="item-round-img" src="https://s3.eu-central-1.amazonaws.com/challengebox/a.jpg"> <h2>sib khori</h2> <p>sib gonde bokhor</p> </a></ion-item>';
       swiperDiv.appendChild(innerSwipper);
     }
     var swiperDiv = document.getElementById('bbb1');
     for (i = 0; i < 10; i++) {
       var innerSwipper = document.createElement("div");
       innerSwipper.className = "swiper-slide";
-      innerSwipper.innerHTML = '<ion-item class="item-thumbnail-top item item-complex" href="#/tab/chats/1"> <a class="item-content" ng-href="#/tab/chats/1" href="#/tab/chats/1"> <img class="item-round-img" src="https://s3.eu-central-1.amazonaws.com/challengebox/a.jpg"> <h2>sib khori</h2> <p>sib gonde bokhor</p> </a></ion-item>';
+      innerSwipper.innerHTML = '<ion-item class="item-thumbnail-top item item-complex" href="#/tab/detail/1"> <a class="item-content" ng-href="#/tab/detail/1" href="#/tab/detail/1"> <img class="item-round-img" src="https://s3.eu-central-1.amazonaws.com/challengebox/a.jpg"> <h2>sib khori</h2> <p>sib gonde bokhor</p> </a></ion-item>';
       swiperDiv.appendChild(innerSwipper);
     }
 
@@ -239,6 +252,21 @@ angular.module('starter.controllers', [])
             console.log('Get Post', response);
             return response.data;
           });
+      },
+      getStream: function (id) {
+        // $http returns a promise, which has a then function, which also returns a promise.
+        var fd = new FormData();
+        fd.append("id",id)
+        console.log('http');
+        $http.post("http://127.0.0.1:8080/rest/service/getStream", fd, {
+          transformRequest: angular.identity,
+          headers: {'Content-Type': undefined}
+        })
+          .success(function (response) {
+            // In the response, resp.data contains the result. Check the console to see all of the data returned.
+            console.log('Get Post', response);
+            return response.data;
+          });
       }
     };
   })
@@ -293,27 +321,27 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('signupCtrl', ['$scope', 'doSignUpService', function($scope, doSignUpService){
+    .controller('signupCtrl', ['$scope','$location', 'doSignUpService', function($scope, doSignUpService){
 
     $scope.doSignUp = function(){
       var signUpUrl = "http://127.0.0.1:8080/rest/service/signup";
       console.log('do sign up '+$scope.form.name+' '+$scope.form.lastname+' '+$scope.form.email+' '+$scope.form.username+' '+$scope.form.password);
 
-        doSignUpService.signUp( signUpUrl,$scope);
+        doSignUpService.signUp( signUpUrl,$scope,$location);
 
     };
 
     }])
 
 
-  .service('doSignUpService', ['$http', function ($http) {
-    this.signUp = function ( signupUrl,scope) {
+  .service('doSignUpService', ['$http','$location', function ($http) {
+    this.signUp = function ( signupUrl,scope,$location) {
       var fd = new FormData();
-      fd.append("name",scope.form.name)
-      fd.append("lastname",scope.form.lastname)
-      fd.append("email",scope.form.email)
-      fd.append("password",scope.form.password)
-      fd.append("username",scope.form.username)
+      fd.append("name",scope.form.name);
+      fd.append("lastname",scope.form.lastname);
+      fd.append("email",scope.form.email);
+      fd.append("password",scope.form.password);
+      fd.append("username",scope.form.username);
       console.log('http');
       $http.post(signupUrl, fd, {
         transformRequest: angular.identity,
@@ -321,6 +349,8 @@ angular.module('starter.controllers', [])
       })
         .success(function () {
           console.log('succ');
+          $location.path("/dash");
+
         })
         .error(function () {
           console.log('err');
@@ -328,21 +358,21 @@ angular.module('starter.controllers', [])
     }
   }])
 
-  .controller('signinCtrl', ['$scope', 'doSigninService', function($scope, doSigninService){
+  .controller('signinCtrl', ['$scope','$location', 'doSigninService', function($scope,$location, doSigninService){
 
     $scope.doSignIn = function(){
        var signInUrl = "http://127.0.0.1:8080/rest/service/checkuser";
       console.log('do sign in '+$scope.form.username+' '+$scope.form.password);
 
-      doSigninService.signIn( signInUrl,$scope);
-
+      doSigninService.signIn( signInUrl,$scope,$location);
+      $scope.username="farzad";
     };
 
   }])
 
 
-  .service('doSigninService', ['$http', function ($http) {
-    this.signIn = function ( signinUrl,scope) {
+  .service('doSigninService', ['$http','$location', function ($http) {
+    this.signIn = function ( signinUrl,scope,location) {
       var fd = new FormData();
       fd.append("password",scope.form.password)
       fd.append("username",scope.form.username)
@@ -353,9 +383,12 @@ angular.module('starter.controllers', [])
       })
         .success(function () {
           console.log('succ');
+          scope.username="farzad";
+          location.path('/tab/dash');
         })
         .error(function () {
           console.log('err');
+
         });
     }
   }])

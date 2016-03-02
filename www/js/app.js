@@ -142,7 +142,7 @@ angular.module('starter', ['ionic', 'ionic-material', 'ionMdInput', 'starter.con
 
 
     // if none of the above states are matched, use this as the fallback
-   // $urlRouterProvider.otherwise('/tab/account');
-     $urlRouterProvider.otherwise('/tab/detail/1');
+    //$urlRouterProvider.otherwise('/tab/account');
+     $urlRouterProvider.otherwise('/login');
 
   });
